@@ -27,7 +27,7 @@ java -Xmx30g -jar ${GATK} \
 
 # Usage
 ## Library and import data
-A sample file is included with this package. There are four samples in this sample file, *R3* is the high phenotype parent sample, *qY* is the low phenotype parent sample, *R* is the high phenotype bulk sample, and *Y* is the low phenotype bulk sample.
+A sample file is included with this package. There are four samples in this sample file, **R3** is the high phenotype parent sample, **qY** is the low phenotype parent sample, **R** is the high phenotype bulk sample, and **Y** is the low phenotype bulk sample.
 ```{r}
 library(easyQTLseq)
 # Example with sample data from a GATK table.
@@ -116,6 +116,12 @@ knitr::include_graphics("./docs/outprefix.ED4.line.png")
 If parent is present in the data or parent has a reference genome which is used for SNP calling, delta SNP index confidence intervals for different read depths under the null hypothesis (no QTL) as obtained by simulation test (10,000 replications for each read depth). The chromosome regions exceed 95% or 99% confidence intervals are considered as significant QTL region.
 ```{r, eval = FALSE}
 getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
+```
+```{r, fig.cap="outprefix.scaffoldA07.99CI.png", fig.align='center', out.width="50%", echo = FALSE}
+knitr::include_graphics("./docs/outprefix.scaffoldA07.99CI.png")
+```
+```{r, fig.cap="outprefix.scaffoldA07.ED4.png", fig.align='center', out.width="50%", echo = FALSE}
+knitr::include_graphics("./docs/outprefix.scaffoldA07.ED4.png")
 ```
 
 # Citation

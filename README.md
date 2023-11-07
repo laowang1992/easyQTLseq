@@ -32,9 +32,9 @@ java -Xmx30g -jar ${GATK} \
 ## Library and import data
 
 A sample file is included with this package. There are four samples in
-this sample file, *R3* is the high phenotype parent sample, *qY* is the
-low phenotype parent sample, *R* is the high phenotype bulk sample, and
-*Y* is the low phenotype bulk sample.
+this sample file, **R3** is the high phenotype parent sample, **qY** is
+the low phenotype parent sample, **R** is the high phenotype bulk
+sample, and **Y** is the low phenotype bulk sample.
 
 ``` r
 library(easyQTLseq)
@@ -247,17 +247,31 @@ as significant QTL region.
 getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
 ```
 
+<div class="figure" style="text-align: center">
+
+<img src="./docs/outprefix.scaffoldA07.99CI.png" alt="outprefix.scaffoldA07.99CI.png" width="50%" />
+<p class="caption">
+outprefix.scaffoldA07.99CI.png
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="./docs/outprefix.scaffoldA07.ED4.png" alt="outprefix.scaffoldA07.ED4.png" width="50%" />
+<p class="caption">
+outprefix.scaffoldA07.ED4.png
+</p>
+
+</div>
+
 # Citation
 
 If this package is used in your research, you should cite this package
 in the method section, like:
 
-> The QTL-seq analysis was performed using R package easyQTLseq
-> (<https://github.com/laowang1992/QTLseq_workflow.git>).
+> The QTL-seq analysis was performed using R package easyQTLseq (<https://github.com/laowang1992/QTLseq_workflow.git>).
 
 This paper is also recommended to cite:
 
-> [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of
-> quantitative trait loci in rice by whole genome resequencing of DNA
-> from two bulked populations. Plant J. 2013;74(1):174-183.
-> doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
+> [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of quantitative trait loci in rice by whole genome resequencing of DNA from two bulked populations. Plant J. 2013;74(1):174-183. doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
