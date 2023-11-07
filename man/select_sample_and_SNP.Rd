@@ -50,5 +50,5 @@ library(easyQTLseq)
 file_path <- system.file("extdata", "subset.table.gz", package = "easyQTLseq")
 # readr::read_tsv() has a faster speed than read.table() when reading a file.
 data <- readr::read_tsv(file = file_path)
-x <- importData(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
+x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
 }

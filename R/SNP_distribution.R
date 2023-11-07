@@ -1,7 +1,31 @@
+#' Analyzing the Distribution of SNPs on Chromosomes
+#'
+#' The SNP number in every 1 Mb bins will be shown in histogram along chromosome.
+#'
+#' @param x The QTLseq S3 object.
+#' @param outPrefix The prefix of output file. <outPrefix>.SNP_number_per_chr.txt|csv and <outPrefix>.SNP_distribution_histogram.pdf|png
+#' @param targetChr Only chromosomes in targetChr will be analyzed, default is all chromosomes.
+#' @param chrLabel The labels of chromosomes, default is the same of targetChr.
+#'
+#' @return NULL
 #' @export
+#'
+#' @examples
+#' library(easyQTLseq)
+#' # Example with sample data from a GATK table.
+#' file_path <- system.file("extdata", "subset.table.gz", package = "easyQTLseq")
+#' # readr::read_tsv() has a faster speed than read.table() when reading a file.
+#' data <- readr::read_tsv(file = file_path)
+#' x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
+#' x_filter <- filterDP(x = x)
+#' SNP_distribution(x = x_filter, outPrefix = "outprefix",
+#'                  targetChr = c("scaffoldA01", "scaffoldA07", "scaffoldA09"),
+#'                  chrLabel = c("A01", "A07", "A09"))
 SNP_distribution <- function(x, ...) {
   UseMethod("SNP_distribution")
 }
+
+#' @rdname SNP_distribution
 #' @export
 SNP_distribution.QTLseq <- function(x, outPrefix, targetChr, chrLabel){
   # 计算每条染色体位点个数
@@ -11,7 +35,7 @@ SNP_distribution.QTLseq <- function(x, outPrefix, targetChr, chrLabel){
 
   # SNP分布图
   options(scipen = 200)
-  colourCount = nrow(chr)
+  colourCount = length(targetChr)
   getPalette = colorRampPalette(brewer.pal(8, "Set1"))
   chr <- tibble(CHROM = targetChr, LABEL = chrLabel)
   chr$LABEL <- factor(chr$LABEL, levels = chr$LABEL)

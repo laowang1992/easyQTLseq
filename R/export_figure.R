@@ -13,7 +13,17 @@
 #' @return NULL
 #' @export
 #'
-#' @examples NULL
+#' @examples
+#' library(easyQTLseq)
+#' # Example with sample data from a GATK table.
+#' file_path <- system.file("extdata", "subset.table.gz", package = "easyQTLseq")
+#' # readr::read_tsv() has a faster speed than read.table() when reading a file.
+#' data <- readr::read_tsv(file = file_path)
+#' x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
+#' x_filter <- filterDP(x = x)
+#' x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 20000)
+#' export_figure(x = x_filter, outPrefix = "outprefix", targetChr = c("scaffoldA01", "scaffoldA07", "scaffoldA09"), chrLabel = c("A01", "A07", "A09"), minN = 20, width = 6, height = 3)
+
 export_figure <- function(x, ...) {
   UseMethod("export_figure")
 }
