@@ -4,6 +4,8 @@ output:
   md_document:
     variant: gfm
 ---
+[ [English](./README.md) | [简体中文](https://laowang2023.cn/2023/11/07/20231107-easyQTLseq/) ]
+
 # easyQTLseq
 EasyQTLseq is a R package for QTL-seq analysis.
 
@@ -22,7 +24,7 @@ The VCF file contained parent(s) and two bulks was generated from GATK best prac
 java -Xmx30g -jar ${GATK} \
      -R ${genome} -T VariantsToTable \
      -F CHROM -F POS -F REF -F ALT -GF GT -GF AD -GF GQ \
-     -V ${BSA}.filter.SNPs.vcf.gz -o ../03.Analysis/${BSA}.filter.SNPs.table
+     -V ${BSA}.filter.SNPs.vcf.gz -o ${BSA}.filter.SNPs.table
 ```
 
 # Usage
@@ -104,6 +106,7 @@ export_figure(x = x_filter,
               minN = 20,                                                  # Too few SNPs in a window will result in noise, the windows containing SNPs less than minN will be omitted in figures.
               width = 6, height = 3)
 ```
+
 ```{r, fig.cap="outprefix.delta_SNP_index.99CI.line.png", fig.align='center', out.width="80%", echo = FALSE}
 knitr::include_graphics("./docs/outprefix.delta_SNP_index.99CI.line.png")
 ```

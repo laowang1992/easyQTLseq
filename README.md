@@ -1,3 +1,5 @@
+[ [English](./README.md) \| [简体中文](https://laowang2023.cn/2023/11/07/20231107-easyQTLseq/) ]
+
 # easyQTLseq
 
 EasyQTLseq is a R package for QTL-seq analysis.
@@ -24,7 +26,7 @@ speed.
 java -Xmx30g -jar ${GATK} \
      -R ${genome} -T VariantsToTable \
      -F CHROM -F POS -F REF -F ALT -GF GT -GF AD -GF GQ \
-     -V ${BSA}.filter.SNPs.vcf.gz -o ../03.Analysis/${BSA}.filter.SNPs.table
+     -V ${BSA}.filter.SNPs.vcf.gz -o ${BSA}.filter.SNPs.table
 ```
 
 # Usage
@@ -270,8 +272,12 @@ outprefix.scaffoldA07.ED4.png
 If this package is used in your research, you should cite this package
 in the method section, like:
 
-> The QTL-seq analysis was performed using R package easyQTLseq (<https://github.com/laowang1992/QTLseq_workflow.git>).
+> The QTL-seq analysis was performed using R package easyQTLseq
+> (<https://github.com/laowang1992/QTLseq_workflow.git>).
 
 This paper is also recommended to cite:
 
-> [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of quantitative trait loci in rice by whole genome resequencing of DNA from two bulked populations. Plant J. 2013;74(1):174-183. doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
+> [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of
+> quantitative trait loci in rice by whole genome resequencing of DNA
+> from two bulked populations. Plant J. 2013;74(1):174-183.
+> doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
