@@ -9,4 +9,5 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import cowplot
+#' @import vcfR
 NULL

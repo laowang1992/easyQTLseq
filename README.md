@@ -1,4 +1,5 @@
-[ [English](./README.md) \| [简体中文](https://laowang2023.cn/2023/11/07/20231107-easyQTLseq/) ]
+\[ [English](./README.md) \|
+[简体中文](https://laowang2023.cn/2023/11/07/20231107-easyQTLseq/) \]
 
 # easyQTLseq
 
@@ -17,6 +18,8 @@ devtools::install_github("laowang2023/easyQTLseq")
 
 # Input Data
 
+## Use GATK VariantsToTable
+
 The VCF file contained parent(s) and two bulks was generated from GATK
 best practices pipeline. Utilizing VariantsToTable function of GATK to
 extract GT, AD and GQ information for improving reading and processing
@@ -27,6 +30,22 @@ java -Xmx30g -jar ${GATK} \
      -R ${genome} -T VariantsToTable \
      -F CHROM -F POS -F REF -F ALT -GF GT -GF AD -GF GQ \
      -V ${BSA}.filter.SNPs.vcf.gz -o ${BSA}.filter.SNPs.table
+```
+
+## Use vcf2table
+
+If you only have a vcf file, and you don’t install GATK on your
+computer. Then you can read the vcf file using `vcfR` package, and use
+`vcf2table()` function in `easyQTLseq` to convert the vcf object to a
+table, which is similar the output of GATK’s `VariantsToTable`. The
+output of vcf2table can be used for `select_sample_and_SNP()` directly.
+
+``` r
+library(vcfR)
+library(easyQTLseq)
+file_path <- system.file("extdata", "A07.SNPs.vcf.gz", package = "easyQTLseq")
+x <- read.vcfR(file = file_path)
+data <- vcf2table(x = x)
 ```
 
 # Usage
