@@ -25,12 +25,22 @@
 #' data <- readr::read_tsv(file = file_path)
 #' x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
 select_sample_and_SNP <- function(data, highP, lowP, highB, lowB, popType, bulkSize, minGQ = 10, refFreq = 0.3, chrLen){
+  # 检查一些信息
+  ## 检查refFreq
   if (refFreq >= 0.5 || refFreq <= 0) {
     stop("refFreq should > 0 and < 0.5. Exiting...\n")
   }
+  ## 受否有chrLen，没有就生成
   if(missing(chrLen)) {
     chrLen <- data %>% group_by(CHROM) %>% summarise(Len = max(POS))
   }
+  ## 当参考基因组是某个材料的
+  if (highP == "REF" || lowP == "REF") {
+    data <- data %>% mutate(REF.GT = paste(REF, REF, sep = "/"))
+  }
+  ## 如果有些GT是“A|A”形式的，将“|”换成“/”
+  data <- data %>%
+    mutate(across(ends_with(".GT"), ~ str_replace(.x, "\\|", "/")))
   # select bulk samples and parent samples (if exist)
   df1 <- data %>% select(
     CHROM, POS, REF, ALT,
@@ -92,7 +102,6 @@ select_sample_and_SNP <- function(data, highP, lowP, highB, lowB, popType, bulkS
   }
 
   # 过滤HB index和LB index同时高于某值或同时低于某值的位点
-  # 这里的数值可以改成一个参数，后续修改可以考虑
   df4 <- df3 %>%
     filter(!(((highBulk.AD_0 / HB.DP < refFreq) &
                 (lowBulk.AD_0 / LB.DP < refFreq)) |
