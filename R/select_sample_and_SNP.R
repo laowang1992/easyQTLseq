@@ -35,29 +35,69 @@ select_sample_and_SNP <- function(data, highP, lowP, highB, lowB, popType, bulkS
     chrLen <- data %>% group_by(CHROM) %>% summarise(Len = max(POS))
   }
   ## 当参考基因组是某个材料的
-  if (highP == "REF" || lowP == "REF") {
+  #if (highP == "REF" || lowP == "REF") {
+  #  data <- data %>% mutate(REF.GT = paste(REF, REF, sep = "/"))
+  #}
+  if ((!missing(highP) && highP=="REF") || (!missing(lowP) && lowP=="REF")) {
     data <- data %>% mutate(REF.GT = paste(REF, REF, sep = "/"))
   }
-  ## 如果有些GT是“A|A”形式的，将“|”换成“/”
-  data <- data %>%
-    mutate(across(ends_with(".GT"), ~ str_replace(.x, "\\|", "/")))
   # select bulk samples and parent samples (if exist)
-  df1 <- data %>% select(
-    CHROM, POS, REF, ALT,
-    highParent.GT = any_of(paste(highP, "GT", sep = ".")),
-    lowParent.GT = any_of(paste(lowP, "GT", sep = ".")),
-    highBulk.GT = any_of(paste(highB, "GT", sep = ".")),
-    lowBulk.GT = any_of(paste(lowB, "GT", sep = ".")),
-    highParent.AD = any_of(paste(highP, "AD", sep = ".")),
-    lowParent.AD = any_of(paste(lowP, "AD", sep = ".")),
-    highBulk.AD = any_of(paste(highB, "AD", sep = ".")),
-    lowBulk.AD = any_of(paste(lowB, "AD", sep = ".")),
-    highParent.GQ = any_of(paste(highP, "GQ", sep = ".")),
-    lowParent.GQ = any_of(paste(lowP, "GQ", sep = ".")),
-    highBulk.GQ = any_of(paste(highB, "GQ", sep = ".")),
-    lowBulk.GQ = any_of(paste(lowB, "GQ", sep = "."))
-  ) %>% na.omit()
-
+  if (missing(highP) & missing(lowP)) {
+    df1 <- data %>% select(
+      CHROM, POS, REF, ALT,
+      highBulk.GT = any_of(paste(highB, "GT", sep = ".")),
+      lowBulk.GT = any_of(paste(lowB, "GT", sep = ".")),
+      highBulk.AD = any_of(paste(highB, "AD", sep = ".")),
+      lowBulk.AD = any_of(paste(lowB, "AD", sep = ".")),
+      highBulk.GQ = any_of(paste(highB, "GQ", sep = ".")),
+      lowBulk.GQ = any_of(paste(lowB, "GQ", sep = "."))
+    ) %>% na.omit()
+  } else if (missing(highP)) {
+    df1 <- data %>% select(
+      CHROM, POS, REF, ALT,
+      lowParent.GT = any_of(paste(lowP, "GT", sep = ".")),
+      highBulk.GT = any_of(paste(highB, "GT", sep = ".")),
+      lowBulk.GT = any_of(paste(lowB, "GT", sep = ".")),
+      lowParent.AD = any_of(paste(lowP, "AD", sep = ".")),
+      highBulk.AD = any_of(paste(highB, "AD", sep = ".")),
+      lowBulk.AD = any_of(paste(lowB, "AD", sep = ".")),
+      lowParent.GQ = any_of(paste(lowP, "GQ", sep = ".")),
+      highBulk.GQ = any_of(paste(highB, "GQ", sep = ".")),
+      lowBulk.GQ = any_of(paste(lowB, "GQ", sep = "."))
+    ) %>% na.omit()
+  } else if (missing(lowP)) {
+    df1 <- data %>% select(
+      CHROM, POS, REF, ALT,
+      highParent.GT = any_of(paste(highP, "GT", sep = ".")),
+      highBulk.GT = any_of(paste(highB, "GT", sep = ".")),
+      lowBulk.GT = any_of(paste(lowB, "GT", sep = ".")),
+      highParent.AD = any_of(paste(highP, "AD", sep = ".")),
+      highBulk.AD = any_of(paste(highB, "AD", sep = ".")),
+      lowBulk.AD = any_of(paste(lowB, "AD", sep = ".")),
+      highParent.GQ = any_of(paste(highP, "GQ", sep = ".")),
+      highBulk.GQ = any_of(paste(highB, "GQ", sep = ".")),
+      lowBulk.GQ = any_of(paste(lowB, "GQ", sep = "."))
+    ) %>% na.omit()
+  } else {
+    df1 <- data %>% select(
+      CHROM, POS, REF, ALT,
+      highParent.GT = any_of(paste(highP, "GT", sep = ".")),
+      lowParent.GT = any_of(paste(lowP, "GT", sep = ".")),
+      highBulk.GT = any_of(paste(highB, "GT", sep = ".")),
+      lowBulk.GT = any_of(paste(lowB, "GT", sep = ".")),
+      highParent.AD = any_of(paste(highP, "AD", sep = ".")),
+      lowParent.AD = any_of(paste(lowP, "AD", sep = ".")),
+      highBulk.AD = any_of(paste(highB, "AD", sep = ".")),
+      lowBulk.AD = any_of(paste(lowB, "AD", sep = ".")),
+      highParent.GQ = any_of(paste(highP, "GQ", sep = ".")),
+      lowParent.GQ = any_of(paste(lowP, "GQ", sep = ".")),
+      highBulk.GQ = any_of(paste(highB, "GQ", sep = ".")),
+      lowBulk.GQ = any_of(paste(lowB, "GQ", sep = "."))
+    ) %>% na.omit()
+  }
+  # 如果有些GT是“A|A”形式的，将“|”换成“/”
+  df1 <- df1 %>%
+    mutate(across(ends_with(".GT"), ~ str_replace(.x, "\\|", "/")))
   # filter according parent GT and GQ
   ## filter GQ
   df2 <- df1
@@ -161,13 +201,13 @@ select_sample_and_SNP <- function(data, highP, lowP, highB, lowB, popType, bulkS
     )
   } else if (!missing(highP)) {
     QTLseq <- structure(
-      list(data = df5, highP = highP, highB = highB, lowB = lowB,
+      list(data = df5, highP = highP, lowP = "lowParent", highB = highB, lowB = lowB,
            popType = popType, bulkSize = bulkSize, slidwin = data.frame(), chrLen = chrLen),
       class = c("QTLseq", "WithParent", "HighParent")
     )
   } else if (!missing(lowP)) {
     QTLseq <- structure(
-      list(data = df5, lowP = lowP, highB = highB, lowB = lowB,
+      list(data = df5, highP = "highParent", lowP = lowP, highB = highB, lowB = lowB,
            popType = popType, bulkSize = bulkSize, slidwin = data.frame(), chrLen = chrLen),
       class = c("QTLseq", "WithParent", "LowParent")
     )

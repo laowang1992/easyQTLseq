@@ -47,9 +47,13 @@ calc_index_etc.WithParent <- function(x, outPrefix, winSize, winStep){
                   CI95upper = CI95upper_mean, CI95lower = CI95lower_mean,
                   CI99upper = CI99upper_mean, CI99lower = CI99lower_mean,
                   ED= ED_mean, nSNPs = N) %>%
-    dplyr::mutate(ED4 = ED^4, POS = win_start/2 + win_end/2)
-  write_tsv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
-  write_csv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.csv", sep = "."))
+    mutate(ED4 = ED^4, POS = win_start/2 + win_end/2)
+  write_tsv(x = x$slidwin %>% select(-POS) %>%
+              rename(!!paste(x$highB, "index", sep = ".") := HB.index, !!paste(x$lowB, "index", sep = ".") := LB.index),
+            file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
+  write_csv(x = x$slidwin %>% select(-POS) %>%
+              rename(!!paste(x$highB, "index", sep = ".") := HB.index, !!paste(x$lowB, "index", sep = ".") := LB.index),
+            file = paste(outPrefix, "SlidingWindow.csv", sep = "."))
   x
 }
 #' @rdname calc_index_etc

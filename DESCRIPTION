@@ -18,6 +18,7 @@ Imports:
     RColorBrewer,
     readr,
     scales,
+    stringr,
     tibble,
     tidyr,
     vcfR

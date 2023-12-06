@@ -5,6 +5,7 @@
 #' @importFrom tibble tibble
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom scales comma_format
+#' @importFrom stringr str_replace
 #' @import readr
 #' @import dplyr
 #' @import ggplot2

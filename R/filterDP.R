@@ -108,7 +108,7 @@ filterDP.LowParent <- function(x, minLPdp = 6, minHBdp = 6, minLBdp = 6, maxLPdp
              LB.DP >= minLBdp, LB.DP <= maxLBdp)
   } else {
     x$data <- x$data %>%
-      filter(LP.DP >= minHPdp, LP.DP <= maxHPdp,
+      filter(LP.DP >= minLPdp, LP.DP <= maxLPdp,
              HB.DP >= minHBdp, HB.DP <= maxHBdp,
              LB.DP >= minLBdp, LB.DP <= maxLBdp)
   }
