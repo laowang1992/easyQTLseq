@@ -30,6 +30,7 @@ vcf2table <- function(x) {
   colnames(ad) <- paste(sample, "AD", sep = ".")
   colnames(gq) <- paste(sample, "GQ", sep = ".")
 
-  df <- cbind(data, gt, ad, gq) %>% as_tibble()
+  df <- cbind(data, gt, ad, gq) %>% as_tibble() %>%
+    mutate(CHROM = as.character(CHROM), POS = as.integer(POS))
   return(df)
 }

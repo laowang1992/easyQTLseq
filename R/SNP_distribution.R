@@ -28,6 +28,12 @@ SNP_distribution <- function(x, ...) {
 #' @rdname SNP_distribution
 #' @export
 SNP_distribution.QTLseq <- function(x, outPrefix, targetChr, chrLabel){
+  if (missing(targetChr)) {
+    targetChr <- unique(x_filter$data$CHROM)
+  }
+  if (missing(chrLabel)) {
+    chrLabel <- targetChr
+  }
   # 计算每条染色体位点个数
   SNPnumber <- x$data %>% group_by(CHROM) %>% count()
   write_tsv(x = SNPnumber, file = paste(outPrefix, "SNP_number_per_chr.txt", sep = "."))

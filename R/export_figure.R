@@ -33,7 +33,6 @@ export_figure.WithParent <- function(x, outPrefix, targetChr, chrLabel, minN, wi
                           color = c("#4197d8","#f8c120", "#413496", "#495226", "#d60b6f", "#e66519", "#d581b7", "#83d3ad", "#7c162c", "#26755d")) {
   if (missing(targetChr)) {
     targetChr <- unique(x$slidwin$CHROM)
-    chrLabel <- targetChr
   }
   if (missing(chrLabel)) {
     chrLabel <- targetChr
