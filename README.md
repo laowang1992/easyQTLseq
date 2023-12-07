@@ -13,7 +13,7 @@ EasyQTLseq can be installed from GitHub via devtools:
 # install devtools
 install.packages("devtools")
 # install easyQTLseq
-devtools::install_github("laowang2023/easyQTLseq")
+devtools::install_github("laowang1992/easyQTLseq")
 ```
 
 # Input Data
