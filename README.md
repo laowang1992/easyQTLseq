@@ -1,7 +1,7 @@
 \[ [English](./README.md) \|
 [简体中文](https://laowang2023.cn/2023/11/07/20231107-easyQTLseq/) \]
 
-# easyQTLseq
+# easyQTLseq: A R Package for QTLseq Analysis
 
 EasyQTLseq is a R package for QTL-seq analysis.
 
