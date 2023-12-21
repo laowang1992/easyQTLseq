@@ -75,7 +75,6 @@ data <- readr::read_tsv(file = file_path)
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ## Select samples and SNPs
-
 Some basic information should be assigned use `select_sample_and_SNP()`.
 This function will return a QTLseq S3 object.
 
