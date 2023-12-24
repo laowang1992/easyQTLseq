@@ -291,7 +291,7 @@ If this package is used in your research, you should cite this package
 in the method section, like:
 
 > The QTL-seq analysis was performed using R package easyQTLseq
-> (<https://github.com/laowang1992/QTLseq_workflow.git>).
+> (<https://github.com/laowang1992/easyQTLseq.git>).
 
 This paper is also recommended to cite:
 

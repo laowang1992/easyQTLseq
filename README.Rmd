@@ -140,7 +140,7 @@ knitr::include_graphics("./docs/outprefix.scaffoldA07.ED4.png")
 # Citation
 If this package is used in your research, you should cite this package in the method section, like:
 
-> The QTL-seq analysis was performed using R package easyQTLseq (https://github.com/laowang1992/QTLseq_workflow.git). 
+> The QTL-seq analysis was performed using R package easyQTLseq (https://github.com/laowang1992/easyQTLseq.git). 
 
 This paper is also recommended to cite:
 
