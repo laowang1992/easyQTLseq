@@ -64,7 +64,7 @@ calc_index_etc.WithoutParent <- function(x, outPrefix, winSize, winStep){
                   LB.index = LB.REF.AD / LB.DP,
                   ED = sqrt((HB.index - LB.index)^2 + ((1-HB.index) - (1-LB.index))^2))
   # 滑窗统计，windowscanr这个包好久不更新，说不定那天就不弄用了，还是自己写一个滑窗统计函数吧
-  slidwin <- slidingWindow(df = df,
+  x$slidwin <- slidingWindow(df = df,
                            winSize = winSize,
                            winStep = winStep,
                            groups = "CHROM",
@@ -74,7 +74,7 @@ calc_index_etc.WithoutParent <- function(x, outPrefix, winSize, winStep){
     select(CHROM, win_start, win_end,
                   ED= ED_mean, nSNPs = N) %>%
     mutate(ED4 = ED^4, POS = win_start/2 + win_end/2)
-  write_tsv(x = slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
-  write_csv(x = slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.csv", sep = "."))
-  slidwin
+  write_tsv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
+  write_csv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.csv", sep = "."))
+  x
 }
