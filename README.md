@@ -219,7 +219,7 @@ is used for SNP calling, both delta SNP index and DE are calculated, if
 no parent is present in the data, only ED is calculated.
 
 ``` r
-x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 20000)
+x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 200000)
 ```
 
 ## Export figures
