@@ -43,10 +43,10 @@ export_dp.WithoutParent <- function(x, outPrefix){
   outtb <- x$data %>%
     select(CHROM, POS, REF, ALT, HB.REF.AD, HB.ALT.AD, LB.REF.AD, LB.ALT.AD)
   colnames(outtb) <- c("CHROM", "POS", "REF", "ALT",
-                       paste(highB, "ref", "depth", sep = "."),
-                       paste(highB, "alt", "depth", sep = "."),
-                       paste(lowB, "ref", "depth", sep = "."),
-                       paste(lowB, "alt", "depth", sep = "."))
+                       paste(x$highB, "ref", "depth", sep = "."),
+                       paste(x$highB, "alt", "depth", sep = "."),
+                       paste(x$lowB, "ref", "depth", sep = "."),
+                       paste(x$lowB, "alt", "depth", sep = "."))
   write_tsv(x = outtb, file = paste(outPrefix, "Depth_information.txt", sep = "."))
   write_csv(x = outtb, file = paste(outPrefix, "Depth_information.csv", sep = "."))
 }

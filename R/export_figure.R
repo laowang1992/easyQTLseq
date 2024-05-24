@@ -21,7 +21,7 @@
 #' data <- readr::read_tsv(file = file_path)
 #' x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
 #' x_filter <- filterDP(x = x)
-#' x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 20000)
+#' x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 200000)
 #' export_figure(x = x_filter, outPrefix = "outprefix", targetChr = c("scaffoldA01", "scaffoldA07", "scaffoldA09"), chrLabel = c("A01", "A07", "A09"), minN = 20, width = 6, height = 3)
 
 export_figure <- function(x, ...) {

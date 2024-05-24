@@ -19,7 +19,7 @@
 #' data <- readr::read_tsv(file = file_path)
 #' x <- select_sample_and_SNP(data = data, highP = "qY", lowP = "R3", highB = "Y", lowB = "R", popType = "F2", bulkSize = c(30, 30))
 #' x_filter <- filterDP(x = x)
-#' x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 20000)
+#' x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 200000)
 #' getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
 getQTL_and_exportFigure <- function(x, ...) {
   UseMethod("getQTL_and_exportFigure")
