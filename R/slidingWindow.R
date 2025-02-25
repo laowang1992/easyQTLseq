@@ -36,9 +36,11 @@ slidingWindow <- function(df, winSize, winStep, groups, position, values, fun){
     total = nrow(wid), clear = FALSE, width = width
   )
   for (i in 1:nrow(wid)) {
-    df_tmp <- df %>% filter(groups == wid$groups[i], position >= wid$Start[i], position <= wid$End[i]) %>% na.omit()
+    # 删掉na.omit()，这会导致 N 的数值小于实际的个数，后面apply添加na.rm = TRUE参数
+    df_tmp <- df %>% filter(groups == wid$groups[i], position >= wid$Start[i], position <= wid$End[i])
     wid[i, "N"] <- nrow(df_tmp)
-    x <- apply(df_tmp[, values], 2, fun)
+    # 添加na.rm = TRUE参数，处理含有NA的行
+    x <- apply(df_tmp[, values], 2, fun, na.rm = TRUE)
     wid[i, paste(values, fun, sep = "_")] <- t(x[values])
 
     # 打印一个进度条
