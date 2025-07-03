@@ -256,13 +256,13 @@ outprefix.ED4.line.png
 </div>
 
 ## Get significant QTL region
-
 If parent is present in the data or parent has a reference genome which
 is used for SNP calling, delta SNP index confidence intervals for
 different read depths under the null hypothesis (no QTL) as obtained by
 simulation test (10,000 replications for each read depth). The
 chromosome regions exceed 95% or 99% confidence intervals are considered
-as significant QTL region. $$
+as significant QTL region. 
+$$
 \text{QTL region} = 
 \left\{ x \;\middle|\; \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
 $$
@@ -271,7 +271,6 @@ As for euclidean distance (ED) algorithm, the chromosome regions where
 the fourth power of the Euclidean distance exceeds the mean plus three
 times the variance of the fourth power of the Euclidean distance are
 considered QTL regions.
-
 $$
 \text{QTL region} = \left\{ x \mid \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
 $$
