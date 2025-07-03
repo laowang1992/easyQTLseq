@@ -1,7 +1,7 @@
 Package: easyQTLseq
 Type: Package
 Title: A Package for QTL-seq Analysis
-Version: 0.1.0
+Version: 1.1.0
 Author: Wang Pengfei
 Maintainer: Wang Pengfei <wangpf0608@126.com>
 Description: This package is used for QTL-seq analysis.
@@ -9,7 +9,7 @@ Description: This package is used for QTL-seq analysis.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports: 
     cowplot,
     dplyr,

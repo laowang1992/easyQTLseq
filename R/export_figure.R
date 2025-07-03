@@ -120,10 +120,14 @@ export_figure.WithParent <- function(x, outPrefix, targetChr, chrLabel, minN, wi
   p_ED4 <- p +
     coord_cartesian(ylim = c(0-max(dataforPlot$df$ED4, na.rm = TRUE)*0.015, max(dataforPlot$df$ED4, na.rm = TRUE)*1.05)) +
     labs(y = bquote(ED^4))
-  p_ED4_L <- p_ED4 + geom_line(aes(y = ED4), linewidth = 1)
+  p_ED4_L <- p_ED4 +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
+    geom_line(aes(y = ED4), linewidth = 1)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.png", sep = "."), width = width, height = height, dpi = 500)
-  p_ED4_P <- p_ED4 + geom_point(aes(y = ED4), size = 1.5)
+  p_ED4_P <- p_ED4 +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
+    geom_point(aes(y = ED4), size = 1.5)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.png", sep = "."), width = width, height = height, dpi = 500)
 }
@@ -173,10 +177,14 @@ export_figure.WithoutParent <- function(x, outPrefix, targetChr, chrLabel, minN,
   p_ED4 <- p +
     coord_cartesian(ylim = c(0-max(dataforPlot$df$ED4, na.rm = TRUE)*0.015, max(dataforPlot$df$ED4, na.rm = TRUE)*1.05)) +
     labs(y = bquote(ED^4))
-  p_ED4_L <- p_ED4 + geom_line(aes(y = ED4), linewidth = 1)
+  p_ED4_L <- p_ED4 +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
+    geom_line(aes(y = ED4), linewidth = 1)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.png", sep = "."), width = width, height = height, dpi = 500)
-  p_ED4_P <- p_ED4 + geom_point(aes(y = ED4), size = 1.5)
+  p_ED4_P <- p_ED4 +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
+    geom_point(aes(y = ED4), size = 1.5)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.png", sep = "."), width = width, height = height, dpi = 500)
 }

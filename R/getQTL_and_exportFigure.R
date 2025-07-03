@@ -29,11 +29,24 @@ getQTL_and_exportFigure <- function(x, ...) {
 #' @export
 getQTL_and_exportFigure.WithParent <- function(x, outPrefix, minN) {
   data <- x$slidwin
-  CI95 <- getQTL(data = data, CI = 95, n = minN, export = TRUE, filename = paste(outPrefix, "95CI.csv", sep = "."))
-  CI99 <- getQTL(data = data, CI = 99, n = minN, export = TRUE, filename = paste(outPrefix, "99CI.csv", sep = "."))
+  CI95 <- getQTL_for_index(data = data, CI = 95, n = minN, export = TRUE, filename = paste(outPrefix, "95CI.csv", sep = "."))
+  CI99 <- getQTL_for_index(data = data, CI = 99, n = minN, export = TRUE, filename = paste(outPrefix, "99CI.csv", sep = "."))
+  ED4qtl <- getQTL_for_ed4(data = data, n = minN, export = TRUE, filename = paste(outPrefix, "ED4QTL.csv", sep = "."))
 
   ## plot target chrom
   options(scipen=200)
-  plotTargetChrom(x = x, CI = 95, minN = minN, outPrefix = outPrefix)
-  plotTargetChrom(x = x, CI = 99, minN = minN, outPrefix = outPrefix)
+  plotTargetChrom_for_index(x = x, CI = 95, minN = minN, outPrefix = outPrefix)
+  plotTargetChrom_for_index(x = x, CI = 99, minN = minN, outPrefix = outPrefix)
+  plotTargetChrom_for_ED4(x = x, minN = minN, outPrefix = outPrefix)
+}
+
+#' @rdname getQTL_and_exportFigure
+#' @export
+getQTL_and_exportFigure.WithoutParent <- function(x, outPrefix, minN) {
+  data <- x$slidwin
+  ED4qtl <- getQTL_for_ed4(data = data, n = minN, export = TRUE, filename = paste(outPrefix, "ED4QTL.csv", sep = "."))
+
+  ## plot target chrom
+  options(scipen=200)
+  plotTargetChrom_for_ED4(x = x, minN = minN, outPrefix = outPrefix)
 }

@@ -47,7 +47,8 @@ calc_index_etc.WithParent <- function(x, outPrefix, winSize, winStep){
                   CI95upper = CI95upper_mean, CI95lower = CI95lower_mean,
                   CI99upper = CI99upper_mean, CI99lower = CI99lower_mean,
                   ED= ED_mean, nSNPs = N) %>%
-    mutate(ED4 = ED^4, POS = win_start/2 + win_end/2)
+    mutate(ED4 = ED^4, ED4threshold = mean(ED4, na.rm = T) + 3*sd(ED4, na.rm = T),
+           POS = win_start/2 + win_end/2)
   write_tsv(x = x$slidwin %>% select(-POS) %>%
               rename(!!paste(x$highB, "index", sep = ".") := HB.index, !!paste(x$lowB, "index", sep = ".") := LB.index),
             file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
@@ -73,7 +74,8 @@ calc_index_etc.WithoutParent <- function(x, outPrefix, winSize, winStep){
                            fun = "mean") %>% as_tibble() %>%
     select(CHROM, win_start, win_end,
                   ED= ED_mean, nSNPs = N) %>%
-    mutate(ED4 = ED^4, POS = win_start/2 + win_end/2)
+    mutate(ED4 = ED^4, ED4threshold = mean(ED4, na.rm = T) + 3*sd(ED4, na.rm = T),
+           POS = win_start/2 + win_end/2)
   write_tsv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.txt", sep = "."))
   write_csv(x = x$slidwin %>% select(-POS), file = paste(outPrefix, "SlidingWindow.csv", sep = "."))
   x

@@ -3,11 +3,14 @@
 \name{getQTL_and_exportFigure}
 \alias{getQTL_and_exportFigure}
 \alias{getQTL_and_exportFigure.WithParent}
+\alias{getQTL_and_exportFigure.WithoutParent}
 \title{Get QTL Exceed 95\% and 99\% Confidence Interval}
 \usage{
 getQTL_and_exportFigure(x, ...)
 
 \method{getQTL_and_exportFigure}{WithParent}(x, outPrefix, minN)
+
+\method{getQTL_and_exportFigure}{WithoutParent}(x, outPrefix, minN)
 }
 \arguments{
 \item{x}{The QTLseq S3 object.}
