@@ -75,6 +75,7 @@ data <- readr::read_tsv(file = file_path)
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ## Select samples and SNPs
+
 Some basic information should be assigned use `select_sample_and_SNP()`.
 This function will return a QTLseq S3 object.
 
@@ -261,7 +262,19 @@ is used for SNP calling, delta SNP index confidence intervals for
 different read depths under the null hypothesis (no QTL) as obtained by
 simulation test (10,000 replications for each read depth). The
 chromosome regions exceed 95% or 99% confidence intervals are considered
-as significant QTL region.
+as significant QTL region. $$
+\text{QTL region} = 
+\left\{ x \;\middle|\; \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
+$$
+
+As for euclidean distance (ED) algorithm, the chromosome regions where
+the fourth power of the Euclidean distance exceeds the mean plus three
+times the variance of the fourth power of the Euclidean distance are
+considered QTL regions.
+
+$$
+\text{QTL region} = \left\{ x \mid \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
+$$
 
 ``` r
 getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
