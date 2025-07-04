@@ -264,18 +264,18 @@ simulation test (10,000 replications for each read depth). The
 chromosome regions exceed 95% or 99% confidence intervals are considered
 as significant QTL region.
 
-$$
-\text{QTL region} = \left\{ x \,\big|\, \left| \Delta \text{SNP\text{-}index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
-$$
+```math
+\text{QTL region} = \left\{ x \;\middle|\; \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
+```
 
 As for euclidean distance (ED) algorithm, the chromosome regions where
 the fourth power of the Euclidean distance exceeds the mean plus three
 times the variance of the fourth power of the Euclidean distance are
 considered QTL regions.
 
-$$
-\text{QTL region} = \left\{ x \,\big|\, \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
-$$
+```math
+\text{QTL region} = \left\{ x \mid \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
+```
 
 ``` r
 getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
