@@ -317,7 +317,7 @@ chromosome regions exceed 95% or 99% confidence intervals are considered
 as significant QTL region.
 
 ``` math
-\text{QTL region} = \left\{ x \,\big|\, \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
+\text{QTL region} = \left\{ x \;\middle|\; \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
 ```
 
 As for euclidean distance (ED) algorithm, the chromosome regions where
