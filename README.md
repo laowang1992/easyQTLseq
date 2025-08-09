@@ -376,9 +376,14 @@ in the method section, like:
 > The QTL-seq analysis was performed using R package easyQTLseq
 > (<https://github.com/laowang1992/easyQTLseq.git>).
 
-This paper is also recommended to cite:
+These paper are also recommended to cite:
 
-> [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of
-> quantitative trait loci in rice by whole genome resequencing of DNA
-> from two bulked populations. Plant J. 2013;74(1):174-183.
-> doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
+- If ΔSNP index is used: 
+  > [Takagi H, Abe A, Yoshida K, et al. QTL-seq: rapid mapping of quantitative trait loci in rice by whole genome resequencing of DNA from two bulked populations. Plant J.
+  2013;74(1):174-183. doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/10.1111/tpj.12105)
+
+- If ED algorithm is used: 
+  > [Hill JT, Demarest BL, Bisgrove BW, Gorsi B, Su YC, Yost HJ. MMAPPR: mutation mapping analysis pipeline for pooled RNA-seq. Genome Res. 2013;23(4):687-697. doi:10.1101/gr.146936.112](https://doi.org/10.1101/gr.146936.112)
+
+- If G’ value is used: 
+  > [Magwene PM, Willis JH, Kelly JK. The statistics of bulk segregant analysis using next generation sequencing. PLoS Comput Biol. 2011;7(11):e1002255. doi:10.1371/journal.pcbi.1002255](https://doi.org/10.1371/journal.pcbi.1002255)
