@@ -224,20 +224,26 @@ if no parent is present in the data, only ED and G value are calculated.
 x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 200000)
 ```
 
-- for SNP index: $$
-   \Delta \mathrm{SNP\ Index} = \mathrm{SNP\ Index}_{\text{Pool1}} - \mathrm{SNP\ Index}_{\text{Pool2}}
-   $$ $$
-   \mathrm{SNP\ Index} = \frac{\text{Alt Depth}}{\text{Total Depth}}
-   $$
-- for Euclidean distance: $$
-   ED=\sqrt{(A_{mut}-A_{wt})^2+(C_{mut}-C_{wt})^2+(G_{mut}-G_{wt})^2+(T_{mut}-T_{wt})^2}
-   $$
+- for SNP index:
+
+$$
+  \Delta \mathrm{SNP\ Index} = \mathrm{SNP\ Index}_{\text{Pool1}} - \mathrm{SNP\ Index}_{\text{Pool2}}
+  $$ $$
+  \mathrm{SNP\ Index} = \frac{\text{Alt Depth}}{\text{Total Depth}}
+  $$
+
+- for Euclidean distance:
+
+$$
+  ED=\sqrt{(A_{mut}-A_{wt})^2+(C_{mut}-C_{wt})^2+(G_{mut}-G_{wt})^2+(T_{mut}-T_{wt})^2}
+  $$
+
 - for G value:
 
   |            | Ref allele | Alt allele | Total             |
   |------------|------------|------------|-------------------|
   | **Pool A** | A₁         | A₂         | A₁ + A₂           |
-  | **Pool B** | B₁         | B₂         | B₁ + B₂           |
+  |**Pool B** | B₁         | B₂         | B₁ + B₂           |
   | **Total**  | A₁ + B₁    | A₂ + B₂    | A₁ + A₂ + B₁ + B₂ |
 
   $$

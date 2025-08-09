@@ -106,16 +106,20 @@ x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000
 ```
 
  - for SNP index:
- $$
- \Delta \mathrm{SNP\ Index} = \mathrm{SNP\ Index}_{\text{Pool1}} - \mathrm{SNP\ Index}_{\text{Pool2}}
- $$
- $$
- \mathrm{SNP\ Index} = \frac{\text{Alt Depth}}{\text{Total Depth}}
- $$
+ 
+  $$
+  \Delta \mathrm{SNP\ Index} = \mathrm{SNP\ Index}_{\text{Pool1}} - \mathrm{SNP\ Index}_{\text{Pool2}}
+  $$
+  $$
+  \mathrm{SNP\ Index} = \frac{\text{Alt Depth}}{\text{Total Depth}}
+  $$
+  
  - for Euclidean distance:
- $$
- ED=\sqrt{(A_{mut}-A_{wt})^2+(C_{mut}-C_{wt})^2+(G_{mut}-G_{wt})^2+(T_{mut}-T_{wt})^2}
- $$
+ 
+  $$
+  ED=\sqrt{(A_{mut}-A_{wt})^2+(C_{mut}-C_{wt})^2+(G_{mut}-G_{wt})^2+(T_{mut}-T_{wt})^2}
+  $$
+  
  - for G value:
  
   |            | Ref allele | Alt allele | Total          |
@@ -124,22 +128,22 @@ x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000
   | **Pool B** | B₁           | B₂           | B₁ + B₂       |
   | **Total**   | A₁ + B₁      | A₂ + B₂      | A₁ + A₂ + B₁ + B₂ |
  
- $$
- G = 2 \left[
- A_1 \ln \left( \frac{A_1}{E_{A_1}} \right) +
- A_2 \ln \left( \frac{A_2}{E_{A_2}} \right) +
- B_1 \ln \left( \frac{B_1}{E_{B_1}} \right) +
- B_2 \ln \left( \frac{B_2}{E_{B_2}} \right)
- \right]
- $$
- $$
- \begin{aligned}
- E_{A_1} &= \frac{(A_1 + B_1) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
- E_{A_2} &= \frac{(A_2 + B_2) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
- E_{B_1} &= \frac{(A_1 + B_1) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
- E_{B_2} &= \frac{(A_2 + B_2) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
- \end{aligned}
- $$
+  $$
+  G = 2 \left[
+  A_1 \ln \left( \frac{A_1}{E_{A_1}} \right) +
+  A_2 \ln \left( \frac{A_2}{E_{A_2}} \right) +
+  B_1 \ln \left( \frac{B_1}{E_{B_1}} \right) +
+  B_2 \ln \left( \frac{B_2}{E_{B_2}} \right)
+  \right]
+  $$
+  $$
+  \begin{aligned}
+  E_{A_1} &= \frac{(A_1 + B_1) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{A_2} &= \frac{(A_2 + B_2) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{B_1} &= \frac{(A_1 + B_1) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{B_2} &= \frac{(A_2 + B_2) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
+  \end{aligned}
+  $$
 
 ## Export figures
 After calculating delta SNP index, DE and G value, the result can be show along the chromosome. This function will export the figures.
