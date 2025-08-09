@@ -329,9 +329,10 @@ considered QTL regions.
 \text{QTL region} = \left\{ x \,\big|\, \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
 ```
 
-As for G’ value, the significance threshold under the null hypothesis
-(no QTL) is determined at *p* \< 0.01, chromosome regions exceeding this
-threshold are considered as significant QTL regions.
+As for G' value, the significance threshold under the null hypothesis 
+(no QTL) is determined at estimated G' corresponding to a *p*-value of 
+0.01, chromosome regions exceeding this threshold are considered as 
+significant QTL regions.
 
 ``` math
 \text{QTL region} = \left\{ x \,\big|\, G'(x) > G'_{0.01} \right\}
