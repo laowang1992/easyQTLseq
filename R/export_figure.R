@@ -118,18 +118,31 @@ export_figure.WithParent <- function(x, outPrefix, targetChr, chrLabel, minN, wi
 
   #
   p_ED4 <- p +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     coord_cartesian(ylim = c(0-max(dataforPlot$df$ED4, na.rm = TRUE)*0.015, max(dataforPlot$df$ED4, na.rm = TRUE)*1.05)) +
     labs(y = bquote(ED^4))
   p_ED4_L <- p_ED4 +
-    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     geom_line(aes(y = ED4), linewidth = 1)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.png", sep = "."), width = width, height = height, dpi = 500)
   p_ED4_P <- p_ED4 +
-    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     geom_point(aes(y = ED4), size = 1.5)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.png", sep = "."), width = width, height = height, dpi = 500)
+
+  #
+  p_G <- p +
+    geom_hline(yintercept = 6.634897, color = "#666666", linetype = "dashed") +
+    coord_cartesian(ylim = c(0-max(dataforPlot$df$Gprime, na.rm = TRUE)*0.015, max(dataforPlot$df$Gprime, na.rm = TRUE)*1.05)) +
+    labs(y = "G' value")
+  p_G_L <- p_G +
+    geom_line(aes(y = Gprime), linewidth = 1)
+  ggsave(p_G_L, filename = paste(outPrefix, "Gprime.line.pdf", sep = "."), width = width, height = height)
+  ggsave(p_G_L, filename = paste(outPrefix, "Gprime.line.png", sep = "."), width = width, height = height, dpi = 500)
+  p_G_P <- p_G +
+    geom_point(aes(y = Gprime), size = 1.5)
+  ggsave(p_G_P, filename = paste(outPrefix, "Gprime.point.pdf", sep = "."), width = width, height = height)
+  ggsave(p_G_P, filename = paste(outPrefix, "Gprime.point.png", sep = "."), width = width, height = height, dpi = 500)
 }
 #' @rdname export_figure
 #' @export
@@ -175,16 +188,29 @@ export_figure.WithoutParent <- function(x, outPrefix, targetChr, chrLabel, minN,
 
   #
   p_ED4 <- p +
+    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     coord_cartesian(ylim = c(0-max(dataforPlot$df$ED4, na.rm = TRUE)*0.015, max(dataforPlot$df$ED4, na.rm = TRUE)*1.05)) +
     labs(y = bquote(ED^4))
   p_ED4_L <- p_ED4 +
-    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     geom_line(aes(y = ED4), linewidth = 1)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_L, filename = paste(outPrefix, "ED4.line.png", sep = "."), width = width, height = height, dpi = 500)
   p_ED4_P <- p_ED4 +
-    geom_line(aes(y = ED4threshold), color = "#666666", linetype = "dashed") +
     geom_point(aes(y = ED4), size = 1.5)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.pdf", sep = "."), width = width, height = height)
   ggsave(p_ED4_P, filename = paste(outPrefix, "ED4.point.png", sep = "."), width = width, height = height, dpi = 500)
+
+  #
+  p_G <- p +
+    geom_hline(yintercept = 6.634897, color = "#666666", linetype = "dashed") +
+    coord_cartesian(ylim = c(0-max(dataforPlot$df$Gprime, na.rm = TRUE)*0.015, max(dataforPlot$df$Gprime, na.rm = TRUE)*1.05)) +
+    labs(y = "G' value")
+  p_G_L <- p_G +
+    geom_line(aes(y = Gprime), linewidth = 1)
+  ggsave(p_G_L, filename = paste(outPrefix, "Gprime.line.pdf", sep = "."), width = width, height = height)
+  ggsave(p_G_L, filename = paste(outPrefix, "Gprime.line.png", sep = "."), width = width, height = height, dpi = 500)
+  p_G_P <- p_G +
+    geom_point(aes(y = Gprime), size = 1.5)
+  ggsave(p_G_P, filename = paste(outPrefix, "Gprime.point.pdf", sep = "."), width = width, height = height)
+  ggsave(p_G_P, filename = paste(outPrefix, "Gprime.point.png", sep = "."), width = width, height = height, dpi = 500)
 }

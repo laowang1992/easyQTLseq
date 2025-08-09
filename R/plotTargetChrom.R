@@ -56,3 +56,30 @@ plotTargetChrom_for_ED4 <- function(x, minN = 0, outPrefix){
     }
   }
 }
+
+#' @export
+plotTargetChrom_for_Gprime <- function(x, minN = 0, outPrefix){
+  interval <- read_csv(file = paste(outPrefix, "GprimeQTL.csv", sep = "."), show_col_types = FALSE)
+  if (nrow(interval) > 0) {
+    for (i in unique(interval$CHROM)) {
+      d <- x$slidwin %>% filter(CHROM == i, nSNPs >= minN) %>%
+        select(CHROM, POS = POS,
+               Gprime) %>% mutate(Gprimethreshold = 6.634897)
+      inter <- interval %>% filter(CHROM == i)
+      chrLen <- x$chrLen$Len[x$chrLen$CHROM == i]
+
+      p_Gprime <- ggplot() +
+        geom_rect(data = inter, aes(xmin = Start, xmax = End, ymin = -Inf, ymax = Inf),fill = '#FF3300', color = "#FF3300") +
+        geom_line(data = d, aes(x = POS, y = Gprimethreshold), color = "gray60", linetype = "dashed") +
+        geom_line(data = d, mapping = aes(x = POS, y = Gprime), color = "blue") +
+        scale_x_continuous(limits = c(0, chrLen), labels = scales::comma_format(scale = 1e-6, suffix = "Mb")) +
+        scale_y_continuous(limits = c(0, max(d$Gprime, na.rm = TRUE))) +
+        labs(x = NULL, y = "G' value") +
+        theme_half_open()
+      ggsave(p_Gprime, filename = paste(outPrefix, i, "Gprime", "png", sep = "."), height = 3.5, width = 4.5, dpi = 500)
+      ggsave(p_Gprime, filename = paste(outPrefix, i, "Gprime", "pdf", sep = "."), height = 3.5, width = 4.5)
+
+      print(paste(i, "has been done...", sep = " "))
+    }
+  }
+}

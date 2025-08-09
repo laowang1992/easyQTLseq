@@ -1,7 +1,7 @@
 Package: easyQTLseq
 Type: Package
 Title: A Package for QTL-seq Analysis
-Version: 1.1.0
+Version: 1.2.0
 Author: Wang Pengfei
 Maintainer: Wang Pengfei <wangpf0608@126.com>
 Description: This package is used for QTL-seq analysis.

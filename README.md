@@ -213,20 +213,53 @@ export_dp(x = x_filter, outPrefix = "outprefix")
 ## Calculate using sliding window
 
 To reduce noise in QTL-seq analsis, a sliding window method is adopted
-to calculate SNP index, delta SNP index, and Euclidean distance (ED).
+to calculate SNP index, delta SNP index, Euclidean distance (ED) and G
+value.
 
 If parent is present in the data or parent has a reference genome which
-is used for SNP calling, both delta SNP index and DE are calculated, if
-no parent is present in the data, only ED is calculated.
+is used for SNP calling, delta SNP index, DE and G value are calculated,
+if no parent is present in the data, only ED and G value are calculated.
 
 ``` r
 x_filter <- calc_index_etc(x = x_filter, outPrefix = "outprefix", winSize = 2000000, winStep = 200000)
 ```
 
+- for SNP index: $$
+   \Delta \mathrm{SNP\ Index} = \mathrm{SNP\ Index}_{\text{Pool1}} - \mathrm{SNP\ Index}_{\text{Pool2}}
+   $$ $$
+   \mathrm{SNP\ Index} = \frac{\text{Alt Depth}}{\text{Total Depth}}
+   $$
+- for Euclidean distance: $$
+   ED=\sqrt{(A_{mut}-A_{wt})^2+(C_{mut}-C_{wt})^2+(G_{mut}-G_{wt})^2+(T_{mut}-T_{wt})^2}
+   $$
+- for G value:
+
+  |            | Ref allele | Alt allele | Total             |
+  |------------|------------|------------|-------------------|
+  | **Pool A** | A₁         | A₂         | A₁ + A₂           |
+  | **Pool B** | B₁         | B₂         | B₁ + B₂           |
+  | **Total**  | A₁ + B₁    | A₂ + B₂    | A₁ + A₂ + B₁ + B₂ |
+
+  $$
+  G = 2 \left[
+  A_1 \ln \left( \frac{A_1}{E_{A_1}} \right) +
+  A_2 \ln \left( \frac{A_2}{E_{A_2}} \right) +
+  B_1 \ln \left( \frac{B_1}{E_{B_1}} \right) +
+  B_2 \ln \left( \frac{B_2}{E_{B_2}} \right)
+  \right]
+  $$ $$
+  \begin{aligned}
+  E_{A_1} &= \frac{(A_1 + B_1) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{A_2} &= \frac{(A_2 + B_2) \times (A_1 + A_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{B_1} &= \frac{(A_1 + B_1) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
+  E_{B_2} &= \frac{(A_2 + B_2) \times (B_1 + B_2)}{A_1 + A_2 + B_1 + B_2} \\
+  \end{aligned}
+  $$
+
 ## Export figures
 
-After calculating delta SNP index and DE, the result can be show along
-the chromosome. This function will export the figures.
+After calculating delta SNP index, DE and G value, the result can be
+show along the chromosome. This function will export the figures.
 
 ``` r
 export_figure(x = x_filter, 
@@ -255,6 +288,15 @@ outprefix.ED4.line.png
 
 </div>
 
+<div class="figure" style="text-align: center">
+
+<img src="./docs/outprefix.Gprime.line.png" alt="outprefix.Gprime.line.png" width="80%" />
+<p class="caption">
+outprefix.Gprime.line.png
+</p>
+
+</div>
+
 ## Get significant QTL region
 
 If parent is present in the data or parent has a reference genome which
@@ -264,18 +306,26 @@ simulation test (10,000 replications for each read depth). The
 chromosome regions exceed 95% or 99% confidence intervals are considered
 as significant QTL region.
 
-```math
-\text{QTL region} = \left\{ x \;\middle|\; \left| \Delta \text{SNP-index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
-```
+$$
+\text{QTL region} = \left\{ x \,\big|\, \left| \Delta \text{SNP\text{-}index}(x) \right| > \mathrm{CI}_{\alpha}(x) \right\}
+$$
 
 As for euclidean distance (ED) algorithm, the chromosome regions where
 the fourth power of the Euclidean distance exceeds the mean plus three
 times the variance of the fourth power of the Euclidean distance are
 considered QTL regions.
 
-```math
-\text{QTL region} = \left\{ x \mid \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
-```
+$$
+\text{QTL region} = \left\{ x \,\big|\, \mathrm{ED}^4(x) > \overline{\mathrm{ED}^4} + 3 \cdot \mathrm{Var}(\mathrm{ED}^4) \right\}
+$$
+
+As for G’ value, the significance threshold under the null hypothesis
+(no QTL) is determined at *p* \< 0.01, chromosome regions exceeding this
+threshold are considered as significant QTL regions.
+
+$$
+\text{QTL region} = \left\{ x \,\big|\, G'(x) > G'_{0.01} \right\}
+$$
 
 ``` r
 getQTL_and_exportFigure(x = x_filter, outPrefix = "outprefix", minN = 20)
@@ -295,6 +345,15 @@ outprefix.scaffoldA07.99CI.png
 <img src="./docs/outprefix.scaffoldA07.ED4.png" alt="outprefix.scaffoldA07.ED4.png" width="50%" />
 <p class="caption">
 outprefix.scaffoldA07.ED4.png
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="./docs/outprefix.scaffoldA07.Gprime.png" alt="outprefix.scaffoldA07.Gprime.png" width="50%" />
+<p class="caption">
+outprefix.scaffoldA07.Gprime.png
 </p>
 
 </div>

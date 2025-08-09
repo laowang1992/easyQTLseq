@@ -1,4 +1,0 @@
-CHROM	n
-scaffoldA01	19800
-scaffoldA07	35940
-scaffoldA09	47221
