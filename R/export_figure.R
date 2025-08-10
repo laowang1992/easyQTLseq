@@ -1,7 +1,7 @@
 
-#' Export Figures of Sliding Window SNP Index and Euclidean Distance
+#' Export Figures of Sliding Window SNP Index, Euclidean Distance And G' value
 #'
-#' @param x A QTLseq S3 object with sliding window of SNP index and Euclidean Distance.
+#' @param x A QTLseq S3 object with sliding window of SNP index, Euclidean Distance and G' value.
 #' @param outPrefix The prefix of figures.
 #' @param targetChr Target chromosome to be drawn in figures, default is all chromosomes in the data.
 #' @param chrLabel The label for chromosome shown in figures, default is chromosome names in the data.

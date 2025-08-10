@@ -1,12 +1,12 @@
 
-#' Calculate Smoothed SNP Index and Euclidean Distance Using Sliding Window
+#' Calculate Smoothed SNP Index, Euclidean Distance And G' Value Using Sliding Window
 #'
 #' @param x The QTLseq S3 object.
 #' @param outPrefix The prefix of <outPrefix>.SlidingWindow.txt and <outPrefix>.SlidingWindow.csv
 #' @param winSize Window size for sliding window.
 #' @param winStep Window step for sliding window.
 #'
-#' @return A QTLseq S3 object with sliding window of SNP index and Euclidean Distance.
+#' @return A QTLseq S3 object with sliding window of SNP index, Euclidean Distance and G' value.
 #' @export
 #'
 #' @examples

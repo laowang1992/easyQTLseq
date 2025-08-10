@@ -1,7 +1,7 @@
 
 #' Get QTL Exceed 95\% and 99\% Confidence Interval
 #'
-#' This function will export <outPrefix>.95CI.csv, <outPrefix>.99CI.csv and figures of target chromosomes.
+#' This function will export <outPrefix>.95CI.csv, <outPrefix>.99CI.csv, <outPrefix>.ED4QTL.csv, <outPrefix>.GprimeQTL.csv and figures of target chromosomes.
 #'
 #' @param x The QTLseq S3 object.
 #' @param outPrefix The prefix of outfiles.

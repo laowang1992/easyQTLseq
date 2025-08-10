@@ -20,7 +20,7 @@ getQTL_and_exportFigure(x, ...)
 \item{minN}{The minimum number of SNP in a window.}
 }
 \description{
-This function will export <outPrefix>.95CI.csv, <outPrefix>.99CI.csv and figures of target chromosomes.
+This function will export <outPrefix>.95CI.csv, <outPrefix>.99CI.csv, <outPrefix>.ED4QTL.csv, <outPrefix>.GprimeQTL.csv and figures of target chromosomes.
 }
 \examples{
 #' library(easyQTLseq)

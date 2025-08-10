@@ -4,7 +4,7 @@
 \alias{calc_index_etc}
 \alias{calc_index_etc.WithParent}
 \alias{calc_index_etc.WithoutParent}
-\title{Calculate Smoothed SNP Index and Euclidean Distance Using Sliding Window}
+\title{Calculate Smoothed SNP Index, Euclidean Distance And G' Value Using Sliding Window}
 \usage{
 calc_index_etc(x, ...)
 
@@ -22,10 +22,10 @@ calc_index_etc(x, ...)
 \item{winStep}{Window step for sliding window.}
 }
 \value{
-A QTLseq S3 object with sliding window of SNP index and Euclidean Distance.
+A QTLseq S3 object with sliding window of SNP index, Euclidean Distance and G' value.
 }
 \description{
-Calculate Smoothed SNP Index and Euclidean Distance Using Sliding Window
+Calculate Smoothed SNP Index, Euclidean Distance And G' Value Using Sliding Window
 }
 \examples{
 library(easyQTLseq)

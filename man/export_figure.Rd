@@ -4,7 +4,7 @@
 \alias{export_figure}
 \alias{export_figure.WithParent}
 \alias{export_figure.WithoutParent}
-\title{Export Figures of Sliding Window SNP Index and Euclidean Distance}
+\title{Export Figures of Sliding Window SNP Index, Euclidean Distance And G' value}
 \usage{
 export_figure(x, ...)
 
@@ -33,7 +33,7 @@ export_figure(x, ...)
 )
 }
 \arguments{
-\item{x}{A QTLseq S3 object with sliding window of SNP index and Euclidean Distance.}
+\item{x}{A QTLseq S3 object with sliding window of SNP index, Euclidean Distance and G' value.}
 
 \item{outPrefix}{The prefix of figures.}
 
@@ -50,7 +50,7 @@ export_figure(x, ...)
 \item{color}{A vector of colors for chromosomes.}
 }
 \description{
-Export Figures of Sliding Window SNP Index and Euclidean Distance
+Export Figures of Sliding Window SNP Index, Euclidean Distance And G' value
 }
 \examples{
 library(easyQTLseq)
