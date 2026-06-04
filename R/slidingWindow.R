@@ -59,3 +59,71 @@ slidingWindow <- function(df, winSize, winStep, groups, position, values, fun){
   colnames(wid)[1:3] <- c(groups, "win_start", "win_end")
   return(wid)
 }
+
+#' @export
+slidingWindow_fast <- function(df, winSize, winStep, groups, position, values, fun) {
+  # 1. 优化：安全转换函数对象，兼容 "mean" 或 mean
+  actual_fun <- match.fun(fun)
+
+  # 2. 智能提取函数文本名称，防止列名变成尴尬的 "_fun"
+  fun_char <- deparse(substitute(fun))
+  if (is.character(fun)) {
+    fun_char <- fun
+  } else if (fun_char == "fun" || grepl("^function", fun_char)) {
+    fun_char <- "stat"
+  }
+
+  if (winStep > winSize) {
+    stop("winStep should not be bigger than winSize!")
+  }
+
+  # 规范化列名
+  df_clean <- df %>%
+    dplyr::select(groups = all_of(groups), position = all_of(position), all_of(values))
+
+  cat(date(), " | generating windows...\n", sep = "")
+
+  # 生成 windows
+  wid <- df_clean %>%
+    group_by(groups) %>%
+    summarise(Len = max(position, na.rm = TRUE), .groups = "drop") %>%
+    group_by(groups) %>%
+    reframe({
+      if (Len <= winSize) {
+        tibble(win_start = 1, win_end = Len)
+      } else {
+        ends <- seq(from = winSize, to = Len, by = winStep)
+        starts <- ends - winSize + 1
+        if (ends[length(ends)] < Len) {
+          starts <- c(starts, starts[length(starts)] + winStep)
+          ends <- c(ends, Len)
+        }
+        tibble(win_start = starts, win_end = ends)
+      }
+    }) %>%
+    ungroup()
+
+  cat(date(), " | sliding windows (Non-equi join)...\n", sep = "")
+
+  # 3. 优化：这里调用 actual_fun 确保万无一失
+  result <- wid %>%
+    left_join(
+      df_clean,
+      by = join_by(groups, win_start <= position, win_end >= position)
+    ) %>%
+    group_by(groups, win_start, win_end) %>%
+    summarise(
+      N = sum(!is.na(position)),
+      across(
+        all_of(values),
+        ~ if(N[1] == 0) {NA} else {actual_fun(.x, na.rm = TRUE)},
+        .names = "{.col}_{fun_char}"
+      ),
+      .groups = "drop"
+    )
+
+  colnames(result)[1] <- groups
+  cat(date(), " | finish!\n", sep = "")
+
+  return(result)
+}

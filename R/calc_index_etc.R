@@ -25,7 +25,7 @@ calc_index_etc <- function(x, ...) {
 #' @export
 calc_index_etc.WithParent <- function(x, outPrefix, winSize, winStep){
   dp <- x$data %>% select(HB.DP, LB.DP) %>% distinct()
-  dltIndex_CI <- getQTLseqCI(df = dp, popType = x$popType, bulkSizeH = x$bulkSize[1], bulkSizeL = x$bulkSize[2], repN = 10000)
+  dltIndex_CI <- getQTLseqCI_fast(df = dp, popType = x$popType, bulkSizeH = x$bulkSize[1], bulkSizeL = x$bulkSize[2], repN = 10000)
   # 计算snp-index和ED
   df <- x$data %>%
     mutate(HB.index = HB.HP.AD / HB.DP,
@@ -46,7 +46,7 @@ calc_index_etc.WithParent <- function(x, outPrefix, winSize, winStep){
                       G = 2 * (HB.HP.AD*log(HB.HP.AD/EA1) + HB.LP.AD*log(HB.LP.AD/EA2) + LB.HP.AD*log(LB.HP.AD/EB1) + LB.LP.AD*log(LB.LP.AD/EB2))) %>%
     select(-N1, -N2, -R, -S, -N, -EA1, -EA2, -EB1, -EB2)
   # 滑窗统计，windowscanr这个包好久不更新，说不定那天就不能用了，还是自己写一个滑窗统计函数吧
-  x$slidwin <- slidingWindow(df = df,
+  x$slidwin <- slidingWindow_fast(df = df,
                            winSize = winSize,
                            winStep = winStep,
                            groups = "CHROM",
@@ -92,7 +92,7 @@ calc_index_etc.WithoutParent <- function(x, outPrefix, winSize, winStep){
                       G = 2 * (HB.REF.AD*log(HB.REF.AD/EA1) + HB.ALT.AD*log(HB.ALT.AD/EA2) + LB.REF.AD*log(LB.REF.AD/EB1) + LB.ALT.AD*log(LB.ALT.AD/EB2))) %>%
     select(-N1, -N2, -R, -S, -N, -EA1, -EA2, -EB1, -EB2)
   # 滑窗统计，windowscanr这个包好久不更新，说不定那天就不能用了，还是自己写一个滑窗统计函数吧
-  x$slidwin <- slidingWindow(df = df,
+  x$slidwin <- slidingWindow_fast(df = df,
                            winSize = winSize,
                            winStep = winStep,
                            groups = "CHROM",

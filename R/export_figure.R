@@ -44,8 +44,9 @@ export_figure.WithParent <- function(x, outPrefix, targetChr, chrLabel, minN, wi
   COLOR <- chr %>% mutate(color = rep(color, len = nrow(chr)))
   newLen <- chr %>% left_join(x$chrLen, by = "CHROM") %>% select(LABEL, Len)
 
+  band <- 0.005
   dataforPlot <- x$slidwin %>% filter(nSNPs >= minN) %>% right_join(chr, by = "CHROM") %>%
-    addUp(len = newLen, group = "LABEL", pos = "POS", band = 0.005)
+    addUp(len = newLen, group = "LABEL", pos = "POS", band = band)
 
 
   p <- ggplot(dataforPlot$df, aes(x = POS_addUp, group = CHROM, color = CHROM)) +
@@ -53,6 +54,7 @@ export_figure.WithParent <- function(x, outPrefix, targetChr, chrLabel, minN, wi
     scale_x_continuous(breaks = dataforPlot$breaks, labels = dataforPlot$labels, expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     scale_color_manual(breaks = COLOR$CHROM, values = COLOR$color) +
+    coord_cartesian(xlim = c(0, sum(newLen$Len) + band * nrow(newLen) - band)) +
     theme_half_open() +
     theme(legend.position = "NULL",
           #axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
@@ -170,6 +172,7 @@ export_figure.WithoutParent <- function(x, outPrefix, targetChr, chrLabel, minN,
     scale_x_continuous(breaks = dataforPlot$breaks, labels = dataforPlot$labels, expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     scale_color_manual(breaks = COLOR$CHROM, values = COLOR$color) +
+    coord_cartesian(xlim = c(0, sum(newLen$Len) + band * nrow(newLen) - band)) +
     theme_half_open() +
     theme(legend.position = "NULL",
           #axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
