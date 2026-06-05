@@ -65,7 +65,7 @@ slidingWindow_fast <- function(df, winSize, winStep, groups, position, values, f
   # 1. 优化：安全转换函数对象，兼容 "mean" 或 mean
   actual_fun <- match.fun(fun)
 
-  # 2. 智能提取函数文本名称，防止列名变成尴尬的 "_fun"
+  # 2. 智能提取函数文本名称，防止列名变成"_fun"
   fun_char <- deparse(substitute(fun))
   if (is.character(fun)) {
     fun_char <- fun

@@ -50,7 +50,7 @@ getQTLseqCI_fast <- function(df, popType, bulkSizeH, bulkSizeL, repN = 10000){
   n_depths_L <- length(depths_L)
   total_comb <- nrow(df)
 
-  cat(date(), " | 步骤 1: 正在全基因组单次模拟群体等位基因频率 (PH & PL)...\n", sep = "")
+  cat(date(), " | Step 1: calculating allele frequency (PH & PL)...\n", sep = "")
 
   # 【优化一】将 PH 和 PL 移出循环，只计算一次！
   # 同时用高速的矩阵算术代替 F2 中的 apply(..., 2, sum)
@@ -64,10 +64,10 @@ getQTLseqCI_fast <- function(df, popType, bulkSizeH, bulkSizeL, repN = 10000){
     mL <- rmultinom(repN, bulkSizeL, c(1, 2, 1))
     PL <- (mL[1, ] + 0.5 * mL[2, ]) / bulkSizeL
   } else {
-    stop("未知的群体类型，请选择 'RIL' 或 'F2'")
+    stop("Unknown population type，select 'RIL' or 'F2'")
   }
 
-  cat(date(), " | 步骤 2: 正在批量预计算独立深度的 SNP-index 矩阵...\n", sep = "")
+  cat(date(), " | Step 2: Precalculating SNP-index matrices across different depths...\n", sep = "")
 
   # 【优化二】预先生成所有独立深度的测序抽样矩阵 (行=repN, 列=独立深度数)
   # 这样 rbinom 的调用次数从 38416 次骤降到 196 次
@@ -87,7 +87,7 @@ getQTLseqCI_fast <- function(df, popType, bulkSizeH, bulkSizeL, repN = 10000){
     indexL_mat[, j] <- rbinom(repN, depths_L[j], PL) / depths_L[j]
   }
 
-  cat(date(), " | 步骤 3: 正在高效并行计算 Delta 值与置信区间...\n", sep = "")
+  cat(date(), " | Step 3: calculating delta index and confidence interval...\n", sep = "")
 
   # 【优化三】利用矩阵索引和预分配内存，彻底告别 Tibble 按行写入
   #h_indices <- rep(1:n_depths, times = n_depths)
@@ -129,6 +129,6 @@ getQTLseqCI_fast <- function(df, popType, bulkSizeH, bulkSizeL, repN = 10000){
       CI99lower = res_cl[, 4]
     )
 
-  cat(date(), " | 全部任务成功结束！\n", sep = "")
+  cat(date(), " | finish！\n", sep = "")
   return(dltIndex_CI)
 }
