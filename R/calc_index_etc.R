@@ -34,7 +34,16 @@ calc_index_etc.WithParent <- function(x, outPrefix, winSize, winStep){
                   ED = sqrt((HB.index - LB.index)^2 + ((1-HB.index) - (1-LB.index))^2)) %>%
     left_join(dltIndex_CI, by = c("HB.DP", "LB.DP"))
   # 计算G统计量
-  df <- df %>% mutate(N1 = HB.HP.AD + HB.LP.AD,
+  df <- df %>%
+    # 这一步很重要，直接运行在真实测序数据上时，很可能某一个AD = 0，有一个极高概率会报错：log(0) 或 0 * log(0)，
+    # 因此，加一个小到忽略不计的伪计数（Pseudo-count）
+    mutate(
+    HB.HP.AD = HB.HP.AD + 0.0001,
+    HB.LP.AD = HB.LP.AD + 0.0001,
+    LB.HP.AD = LB.HP.AD + 0.0001,
+    LB.LP.AD = LB.LP.AD + 0.0001
+  ) %>%
+    mutate(N1 = HB.HP.AD + HB.LP.AD,
                       N2 = LB.HP.AD + LB.LP.AD,
                       R  = HB.HP.AD + LB.HP.AD,
                       S  = HB.LP.AD + LB.LP.AD,
